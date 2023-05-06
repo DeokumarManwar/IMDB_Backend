@@ -18,6 +18,18 @@ app.use("/api/users/", userRoute);
 const moviesRoutes = require("./routes/movies");
 app.use("/api/movies/", moviesRoutes);
 
+// Directors Routes
+const directorRoutes = require("./routes/director");
+app.use("/api/director/", directorRoutes);
+
+// Actor Routes
+const actorRoute = require("./routes/actor");
+app.use("/api/actor/", actorRoute);
+
+// Actress Routes
+const actressRoute = require("./routes/actress");
+app.use("/api/actress/", actressRoute);
+
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true });
 
 mongoose.connection

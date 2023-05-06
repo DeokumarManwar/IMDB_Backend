@@ -18,6 +18,8 @@ router.post("/save", async (req, res) => {
     directors: req.body.directors,
     tags: req.body.tags,
     awards: req.body.awards,
+    likes: 0,
+    dislikes: 0,
   });
   try {
     const savedMovie = await newMovie.save();

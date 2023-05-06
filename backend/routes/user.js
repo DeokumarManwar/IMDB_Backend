@@ -4,32 +4,40 @@ const user = require("../models/user");
 
 router.get("/login", async (req, res) => {
   try {
-    const data = await user.findOne(req.body.userName);
+    const data = await user.findOne({
+      userName: req.headers.username,
+      password: req.headers.password,
+    });
     if (data) {
       return res.status(200).send({ success: true, user: data });
     } else {
       return res.status(400).send({ success: false, msg: "Data Not Found" });
     }
   } catch (e) {
-    return res.status(505).json({ message: "Cannot find User" });
+    return res.status(505).json({ message: e });
   }
 });
 
 router.post("/signup", async (req, res) => {
-  const newUser = user({
-    userName: req.body.userName,
-    password: req.body.password,
-    image_url: req.body.image_url,
-  });
-  try {
-    const savedUser = await newUser.save();
-    return res.status(200).send({ success: true, user: savedUser });
-  } catch (e) {
-    return res.status(505).json({ message: "Cannot Create User" });
+  const data = await user.findOne({ userName: req.body.userName });
+  if (!data) {
+    const newUser = user({
+      userName: req.body.userName,
+      password: req.body.password,
+      image_url: req.body.image_url,
+    });
+    try {
+      const savedUser = await newUser.save();
+      return res.status(200).send({ success: true, user: savedUser });
+    } catch (e) {
+      return res.status(505).json({ message: "Cannot Create User" });
+    }
+  } else {
+    return res.status(505).json({ message: "User Already Exists" });
   }
 });
 
-router.post("/getAll", async (req, res) => {
+router.get("/getAll", async (req, res) => {
   try {
     const data = await user.find();
     if (data) {

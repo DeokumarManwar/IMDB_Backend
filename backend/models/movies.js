@@ -2,8 +2,12 @@ const mongoose = require("mongoose");
 
 const commentsSchema = mongoose.Schema(
   {
-    user_id: { type: String },
-    comment: { type: String },
+    user_id: {
+      type: String,
+    },
+    comment: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
@@ -44,11 +48,11 @@ const moviesSchema = mongoose.Schema(
       type: String,
     },
     budget: {
-      type: Number,
+      type: String,
       required: true,
     },
     official_collection: {
-      type: Number,
+      type: String,
       required: true,
     },
     genre: {
