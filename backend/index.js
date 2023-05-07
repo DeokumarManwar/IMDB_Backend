@@ -30,6 +30,10 @@ app.use("/api/actor/", actorRoute);
 const actressRoute = require("./routes/actress");
 app.use("/api/actress/", actressRoute);
 
+// Genre Routes
+const genreRoute = require("./routes/genre");
+app.use("/api/genre/", genreRoute);
+
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true });
 
 mongoose.connection
