@@ -18,6 +18,18 @@ router.get("/login", async (req, res) => {
   }
 });
 
+router.get("/getOne/:id", async (req, res) => {
+  const filter = { _id: req.params.id };
+  try {
+    const data = await user.findOne(filter);
+    if (data) {
+      return res.status(200).send({ success: true, user: data });
+    }
+  } catch (e) {
+    return null;
+  }
+});
+
 router.post("/signup", async (req, res) => {
   const data = await user.findOne({ userName: req.body.userName });
   if (!data) {
